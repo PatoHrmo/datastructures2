@@ -2,7 +2,7 @@ package bsttree;
 
 public class BstNode<K extends Comparable<K>,T> {
 	private K key;
-	private T nodeData;
+    private T nodeData;
 	protected BstNode<K,T> left;
 	protected BstNode<K,T> right;
 	

@@ -35,6 +35,7 @@ public class BstTree<K extends Comparable<K>, T> {
 					size++;
 					return true;
 				} else {
+					
 					actualNode = actualNode.right;
 					continue;
 				}
@@ -217,19 +218,7 @@ public class BstTree<K extends Comparable<K>, T> {
 		return this.size;
 	}
 
-	private void inOrder(BstNode<K, T> node) {
-		if (node != null) {
-			this.inOrder(node.left);
-			//System.out.println(node.toString() + System.lineSeparator());
-			this.inOrder(node.right);
-		}
-	}
-
-	public void inOrder() {
-		if (root == null)
-			return;
-		this.inOrder(root);
-	}
+	
      T[] toArray(T[] pole){
 		if(root==null) return null;
 		int i = 0;

@@ -1,7 +1,7 @@
 package pojo;
 
 public class Car implements Comparable<Car> {
-	private int EC;
+	private Integer EC;
 	private String nazov;
 	public Car (int ec, String nazov) {
 		this.EC = ec;

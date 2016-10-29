@@ -1,4 +1,4 @@
-package splaytree;
+package structures.splaytree;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ import org.junit.Test;
 
 
 import pojo.Car;
+import structures.splaytree.SplayTree;
 
 public class SplayTreeTest {
 

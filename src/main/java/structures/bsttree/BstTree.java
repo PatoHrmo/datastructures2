@@ -1,4 +1,4 @@
-package bsttree;
+package structures.bsttree;
 
 import java.util.Stack;
 

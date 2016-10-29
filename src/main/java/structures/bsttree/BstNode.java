@@ -1,4 +1,4 @@
-package bsttree;
+package structures.bsttree;
 
 public class BstNode<K extends Comparable<K>,T> {
 	private K key;

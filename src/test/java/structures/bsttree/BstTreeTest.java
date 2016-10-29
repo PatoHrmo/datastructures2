@@ -1,4 +1,4 @@
-package bsttree;
+package structures.bsttree;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import pojo.Car;
+import structures.bsttree.BstTree;
 
 public class BstTreeTest {
 

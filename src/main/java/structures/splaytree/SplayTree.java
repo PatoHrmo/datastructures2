@@ -1,4 +1,4 @@
-package splaytree;
+package structures.splaytree;
 
 import java.util.LinkedList;
 import java.util.Queue;

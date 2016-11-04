@@ -14,10 +14,21 @@ import pojo.Car;
 import structures.splaytree.SplayTree;
 
 public class SplayTreeTest {
+	@Test
+	public void testIfnotFoundParentIsRoot() {
+		SplayTree<Integer, Car> auta = new SplayTree<>();
+		auta.insert(20, new Car(20,"skodovka"));
+		auta.insert(8, new Car(8,"skodovka"));
+		auta.insert(22, new Car(22,"skodovka"));
+		auta.insert(4, new Car(4,"skodovka"));
+		auta.find(1);
+		assertEquals(4, auta.getRoot().getEC());
+		
+	}
 
 	@Test
 	public void testAllOperations() {
-		for(int i = 0; i< 500;i++) {
+		for(int i = 0; i< 5;i++) {
 			System.out.println("aktualny seed je: "+i);
 			Random generator = new Random(i);
 			SplayTree<Integer, Car> strom = new SplayTree<>();
@@ -63,7 +74,7 @@ public class SplayTreeTest {
 				Car autaExpected[] = new Car[auta.size()];
 				auta.toArray(autaExpected);
 				Car autaActual[] = new Car[strom.getSize()];
-				strom.toArray(autaActual);
+				strom.inOrder(autaActual);
 				assertArrayEquals("nie su rovnake", autaExpected, autaActual);
 		}
 	}

@@ -461,5 +461,9 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
+	
+	public T getDataZRootu() {
+		return root.getData();
+	}
 
 }

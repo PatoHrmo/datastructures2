@@ -28,5 +28,8 @@ public class Vypozicka {
 	public int getIDKnihy() {
 		return this.kniha.getID();
 	}
+	public Kniha getKniha() {
+		return this.kniha;
+	}
 	
 }

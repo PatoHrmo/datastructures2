@@ -1,6 +1,8 @@
 package structures.splaytree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -461,9 +463,44 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
+	public List<T> getSuccessorsOfRootinList(int pocetSuccesorov) {
+		if (root.right != null) {
+			return toList(root.right).subList(0, pocetSuccesorov);
+		} else {
+			return new ArrayList<>();
+		}
+	}
 	
 	public T getDataZRootu() {
 		return root.getData();
+	}
+	
+	public List<T> toList(SplayNode<K, T> node) {
+		Stack<SplayNode<K, T>> s = new Stack<>();
+		List<T> list = new ArrayList<>();
+		while (!s.isEmpty() || node != null) {
+			if (node != null) {
+				s.push(node);
+				node = node.left;
+			} else {
+				node = s.pop();
+				list.add(node.getData());
+				node = node.right;
+			}
+		}
+		return list;
+
+	}
+
+	/**
+	 * Ulozi do pola hodnoty stromu v inOrder poradi.
+	 * 
+	 * @param inArray
+	 *            pole do ktoreho sa ulozia hodnoty tohto stromu
+	 * @see SplayTree#inOrder(T[], SplayNode)
+	 */
+	public List<T> toList() {
+		return toList(root);
 	}
 
 }

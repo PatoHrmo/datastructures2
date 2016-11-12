@@ -52,6 +52,13 @@ public class Kniha {
 	public int getID() {
 		return this.IDvytlacku;
 	}
+	public double getPoplatokZaDenOmeskania() {
+		return poplatokZaDenOmeskania;
+	}
+	public void setPriradenaPobocka(Pobocka pobocka) {
+		this.aktualnePriradenaPobocka = pobocka;
+		
+	}
 		
 	
 }

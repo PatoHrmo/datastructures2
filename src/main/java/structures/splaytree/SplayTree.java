@@ -465,7 +465,13 @@ public class SplayTree<K extends Comparable<K>, T> {
 	}
 	public List<T> getSuccessorsOfRootinList(int pocetSuccesorov) {
 		if (root.right != null) {
-			return toList(root.right).subList(0, pocetSuccesorov);
+			List<T> successorList= toList(root.right);
+			if(successorList.size()<=pocetSuccesorov) {
+				return successorList; 
+			} else {
+				return successorList.subList(0, pocetSuccesorov);
+			}
+			
 		} else {
 			return new ArrayList<>();
 		}

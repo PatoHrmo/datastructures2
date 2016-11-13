@@ -43,10 +43,15 @@ public class PridanieCitatela extends JDialog {
 		getContentPane().add(textFieldPriezvisko);
 		textFieldPriezvisko.setColumns(10);
 		
+		JLabel lblInfo = new JLabel("");
+		lblInfo.setBounds(10, 172, 414, 14);
+		getContentPane().add(lblInfo);
+		
 		JButton btnPridajCitatela = new JButton("Pridaj \u010Ditate\u013Ea");
 		btnPridajCitatela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kniznica.pridajCitatela(textFieldMeno.getText(), textFieldPriezvisko.getText());
+				lblInfo.setText("èitate¾ "+textFieldPriezvisko.getText()+" bol pridaný");
 				textFieldMeno.setText("");
 				textFieldPriezvisko.setText("");
 			}

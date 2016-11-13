@@ -53,6 +53,10 @@ public class VyhldanieKnih extends JDialog {
 					udaje+=s+System.lineSeparator();
 				}
 				textAreaInfo.setText(udaje);
+				if(udaje.equals("")) {
+					textAreaInfo.setText("kniha s týmto názvom nebola nájdená,"
+							+ " ani ïalšie v abecednom poradí");
+				}
 			}
 		});
 		btnHladaj.setBounds(10, 67, 89, 23);

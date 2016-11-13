@@ -22,7 +22,7 @@ public class PridaniePobocky extends JDialog {
 	public PridaniePobocky(KniznicnySoftware kniznica) {
 		this.kniznica = kniznica;
 		setTitle("Pridanie novej pobo\u010Dky");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 199);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNzovPoboky = new JLabel("N\u00E1zov pobo\u010Dky");
@@ -46,7 +46,7 @@ public class PridaniePobocky extends JDialog {
 		getContentPane().add(btnPridajPoboku);
 		
 		lblInfo = new JLabel("");
-		lblInfo.setBounds(10, 101, 179, 14);
+		lblInfo.setBounds(10, 101, 301, 14);
 		getContentPane().add(lblInfo);
 
 	}

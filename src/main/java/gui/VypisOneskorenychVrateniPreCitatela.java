@@ -1,25 +1,28 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import main.KniznicnySoftware;
 
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+public class VypisOneskorenychVrateniPreCitatela extends JDialog {
 
-public class VyhladanieCitatelaDialog extends JDialog {
 	private JTextField cisloPreukazuTxtDield;
 	private KniznicnySoftware kniznica;
 	JTextArea textAreaPozicaneKnihy;
+	private JTextField textFieldod;
+	private JTextField textFielddo;
 	
 	
-	public VyhladanieCitatelaDialog(KniznicnySoftware kniznica) {
-		setTitle("Vyhladanie \u010Ditate\u013Ea");
+	public VypisOneskorenychVrateniPreCitatela(KniznicnySoftware kniznica) {
+		setTitle("V\u00FDpis onekoren\u00FDch vr\u00E1ten\u00FDch kn\u00EDh pre \u010Ditate\u013Ea");
 		this.kniznica = kniznica;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -41,15 +44,13 @@ public class VyhladanieCitatelaDialog extends JDialog {
 		hladajKnihyCitatelaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id = cisloPreukazuTxtDield.getText();
-				String knihyCitatelov = new String();
+				String oneskoreneVypozickyCitatela = new String();
 				menoCitatelaLabel.setText(kniznica.getMenoCitatela(id));
-				for(String kniha : kniznica.getinfoOKnihachCitatela(id)) {
-					knihyCitatelov+= kniha+System.lineSeparator();
+				for(String vypozicka : kniznica.getinfoOOmesaknychVypozickachCitatela(
+						id, textFieldod.getText(), textFielddo.getText())) {
+					oneskoreneVypozickyCitatela+= vypozicka+System.lineSeparator();
 				}
-				textAreaPozicaneKnihy.setText(knihyCitatelov);
-				if(knihyCitatelov.isEmpty()) {
-					textAreaPozicaneKnihy.setText("nie sú požièané žiadne knihy");
-				}
+				textAreaPozicaneKnihy.setText(oneskoreneVypozickyCitatela);
 			}
 		});
 		hladajKnihyCitatelaBtn.setBounds(10, 57, 89, 23);
@@ -61,6 +62,24 @@ public class VyhladanieCitatelaDialog extends JDialog {
 		
 		textAreaPozicaneKnihy = new JTextArea();
 		scrollPane.setViewportView(textAreaPozicaneKnihy);
+		
+		JLabel lblOd = new JLabel("Od:");
+		lblOd.setBounds(192, 11, 46, 14);
+		getContentPane().add(lblOd);
+		
+		JLabel lblDo = new JLabel("Do:");
+		lblDo.setBounds(284, 11, 46, 14);
+		getContentPane().add(lblDo);
+		
+		textFieldod = new JTextField();
+		textFieldod.setBounds(174, 27, 86, 20);
+		getContentPane().add(textFieldod);
+		textFieldod.setColumns(10);
+		
+		textFielddo = new JTextField();
+		textFielddo.setBounds(284, 27, 86, 20);
+		getContentPane().add(textFielddo);
+		textFielddo.setColumns(10);
 
 	}
 

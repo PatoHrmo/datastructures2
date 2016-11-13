@@ -30,10 +30,16 @@ public class Kniha {
 	}
 	@Override
 	public String toString() {
-		return "[nazov=" + nazov + ", autor=" + autor + ", ISBN=" + ISBN + ", EAN=" + EAN + ", zaner=" + zaner
-				+ ", aktualnePriradenaPobocka=" + aktualnePriradenaPobocka.getNazov() + ", poplatokZaDenOmeskania="
-				+ poplatokZaDenOmeskania + ", IDvytlacku=" + IDvytlacku + ", vypozicnaDoba=" + vypozicnaDoba
-				+ ", vypozickaVKtorejJeMomentalneTatoKniha=" + vypozickaVKtorejJeMomentalneTatoKniha + "]";
+		String info =  "názov: " + nazov + " autor: " + autor + " ISBN: " + ISBN + " EAN: " + EAN+System.lineSeparator()
+		        + "žáner: " + zaner+ " poboèka: " + aktualnePriradenaPobocka.getNazov() + " poplatok za omeškanie: "
+				+ poplatokZaDenOmeskania + " eur"+System.lineSeparator()
+				+" ID výtlaèku:" + IDvytlacku + " výpožièná doba" + vypozicnaDoba.getDays()+ " dní";
+		if(jePozicana()) {
+			info+= " je požièaná";
+		} else {
+			info+=" nie je požièaná";
+		}
+		return info;
 	}
 	public boolean jePozicana() {
 		if(vypozickaVKtorejJeMomentalneTatoKniha==null)

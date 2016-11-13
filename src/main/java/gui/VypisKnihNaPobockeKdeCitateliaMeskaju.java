@@ -1,28 +1,28 @@
 package gui;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import main.KniznicnySoftware;
 
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+public class VypisKnihNaPobockeKdeCitateliaMeskaju extends JDialog {
 
-public class VypisKnihNaPobockeDialog extends JDialog {
 	private JTextField nazovPobockytextField;
 	private KniznicnySoftware kniznica;
 	private JTextArea pobockytextArea;
 	
 	
-	public VypisKnihNaPobockeDialog(KniznicnySoftware kniznica) {
+	public VypisKnihNaPobockeKdeCitateliaMeskaju(KniznicnySoftware kniznica) {
 		this.kniznica = kniznica;
-		setTitle("V\u00FDpis kn\u00EDh na pobo\u010Dke");
+		setTitle("V\u00FDpis kn\u00EDh na pobo\u010Dke kde \u010Ditatelia me\u0161kaj\u00FA s vr\u00E1ten\u00EDm");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		
@@ -40,12 +40,13 @@ public class VypisKnihNaPobockeDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String nazovPobocky = nazovPobockytextField.getText();
 				String infoOknihach = new String();
-				for(String info : kniznica.getInfoOknihachNaPobocke(nazovPobocky)){
+				for(String info : kniznica.getKnihyKtoreMeskajuSvratenim(nazovPobocky)){
 					infoOknihach+=info+System.lineSeparator();
 				}
 				pobockytextArea.setText(infoOknihach);
 				if(infoOknihach.equals("")) {
-					pobockytextArea.setText("na tejto poboèke nie sú knihy");
+					pobockytextArea.setText("na tejto poboèke nie sú omeškané výpožièky,"
+							+ " alebo poboèka neexistuje");
 				}
 			}
 		});
@@ -60,4 +61,5 @@ public class VypisKnihNaPobockeDialog extends JDialog {
 		scrollPane.setViewportView(pobockytextArea);
 
 	}
+
 }

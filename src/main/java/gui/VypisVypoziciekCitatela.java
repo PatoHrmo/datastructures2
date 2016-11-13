@@ -1,25 +1,27 @@
 package gui;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import main.KniznicnySoftware;
 
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+public class VypisVypoziciekCitatela extends JDialog {
 
-public class VyhladanieCitatelaDialog extends JDialog {
 	private JTextField cisloPreukazuTxtDield;
 	private KniznicnySoftware kniznica;
 	JTextArea textAreaPozicaneKnihy;
 	
 	
-	public VyhladanieCitatelaDialog(KniznicnySoftware kniznica) {
-		setTitle("Vyhladanie \u010Ditate\u013Ea");
+	public VypisVypoziciekCitatela(KniznicnySoftware kniznica) {
+		setTitle("V\u00FDpis v\u00FDpo\u017Ei\u010Diek \u010Ditate\u013Ea");
 		this.kniznica = kniznica;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -37,19 +39,16 @@ public class VyhladanieCitatelaDialog extends JDialog {
 		menoCitatelaLabel.setBounds(10, 105, 334, 14);
 		getContentPane().add(menoCitatelaLabel);
 		
-		JButton hladajKnihyCitatelaBtn = new JButton("hladaj");
+		JButton hladajKnihyCitatelaBtn = new JButton("vyp\u00ED\u0161");
 		hladajKnihyCitatelaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id = cisloPreukazuTxtDield.getText();
-				String knihyCitatelov = new String();
+				String vypozicky = new String();
 				menoCitatelaLabel.setText(kniznica.getMenoCitatela(id));
-				for(String kniha : kniznica.getinfoOKnihachCitatela(id)) {
-					knihyCitatelov+= kniha+System.lineSeparator();
+				for(String vypozicka : kniznica.getHistoriaVypoziciekCitatela(id)) {
+					vypozicky+= vypozicka+System.lineSeparator();
 				}
-				textAreaPozicaneKnihy.setText(knihyCitatelov);
-				if(knihyCitatelov.isEmpty()) {
-					textAreaPozicaneKnihy.setText("nie sú požièané žiadne knihy");
-				}
+				textAreaPozicaneKnihy.setText(vypozicky);
 			}
 		});
 		hladajKnihyCitatelaBtn.setBounds(10, 57, 89, 23);

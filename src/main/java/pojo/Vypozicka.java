@@ -1,6 +1,7 @@
 package pojo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;;
 
 public class Vypozicka {
@@ -74,6 +75,22 @@ public class Vypozicka {
 	public void blokniCitatela() {
 		this.citatel.setDatumOdblokovania(datumKedyBolaVratena.plusYears(1));
 		
+	}
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+		String pozicana = datumZapozicania.format(formatter);
+		String doKedy = datumDoKedySaMaVratit.format(formatter);
+		
+		String info =  citatel.getMeno()+" "+kniha.getNazov()+" "+pobocka.getNazov()+System.lineSeparator()+
+				"poûiËan· dÚa: "+pozicana+" kedy sa m· vr·tiù: "+doKedy;
+		if(datumKedyBolaVratena!=null) {
+			String vratena = datumKedyBolaVratena.format(formatter);
+			info+=" bola vr·ten·: "+vratena;
+		}
+		if(bolaVratenaNeskor()) {
+			info+=" poËet dnÌ meökania "+getPocetDniMeskania()+".";
+		}
+		return info;
 	}
 	
 	

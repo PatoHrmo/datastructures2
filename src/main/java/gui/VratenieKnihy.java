@@ -32,20 +32,20 @@ public class VratenieKnihy extends JDialog {
 		textFieldIDknihy.setColumns(10);
 		
 		JLabel lblPobokaNaktorejJe = new JLabel("pobo\u010Dka naktorej je kniha vracan\u00E1");
-		lblPobokaNaktorejJe.setBounds(160, 11, 264, 14);
+		lblPobokaNaktorejJe.setBounds(10, 67, 264, 14);
 		getContentPane().add(lblPobokaNaktorejJe);
 		
 		textFieldPobocka = new JTextField();
-		textFieldPobocka.setBounds(160, 36, 86, 20);
+		textFieldPobocka.setBounds(10, 93, 86, 20);
 		getContentPane().add(textFieldPobocka);
 		textFieldPobocka.setColumns(10);
 		
 		JLabel lblsloitateskhoPreukazu = new JLabel("\u010C\u00EDslo \u010Ditate\u013Esk\u00E9ho preukazu");
-		lblsloitateskhoPreukazu.setBounds(10, 67, 168, 14);
+		lblsloitateskhoPreukazu.setBounds(194, 11, 168, 14);
 		getContentPane().add(lblsloitateskhoPreukazu);
 		
 		textFieldIDCitatela = new JTextField();
-		textFieldIDCitatela.setBounds(10, 92, 86, 20);
+		textFieldIDCitatela.setBounds(194, 36, 86, 20);
 		getContentPane().add(textFieldIDCitatela);
 		textFieldIDCitatela.setColumns(10);
 		
@@ -61,7 +61,7 @@ public class VratenieKnihy extends JDialog {
 				textAreaInfo.setText(info);
 			}
 		});
-		btnVrat.setBounds(157, 92, 89, 23);
+		btnVrat.setBounds(157, 92, 117, 23);
 		getContentPane().add(btnVrat);
 		
 

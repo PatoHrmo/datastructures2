@@ -110,6 +110,14 @@ public class PridanieNovejKnihyDialog extends JDialog {
 						textFieldAutor.getText(), textFieldISBN.getText(), textFieldEAN.getText(),
 						textFieldZaner.getText(), textFieldPoplatok.getText(), textFieldDoba.getText());
 				lblInfo.setText(vysledok);
+				textFieldAutor.setText("");
+				textFieldPobocka.setText("");
+				textFieldNazovKnihy.setText("");
+				textFieldISBN.setText("");
+				textFieldEAN.setText("");
+				textFieldZaner.setText("");
+				textFieldPoplatok.setText("");
+				textFieldDoba.setText("");
 				
 			}
 		});

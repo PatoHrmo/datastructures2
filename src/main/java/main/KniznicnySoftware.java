@@ -3,7 +3,6 @@ package main;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class KniznicnySoftware {
 		if (citatel == null) {
 			return "Citatel s ID " + cisloPreukazu + " neexistuje";
 		}
-		if (citatel.jeMoznePozicat(aktualnyDatum)) {
+		if (!citatel.jeMoznePozicat(aktualnyDatum)) {
 			return "citatel nie je svedomity, kniha nebola pozicana";
 		}
 		new Vypozicka(pobocka, kniha, citatel, aktualnyDatum.plus(kniha.getVypozicnaDoba()),
@@ -174,8 +173,9 @@ public class KniznicnySoftware {
 		LocalDate datumDo = LocalDate.parse(datumDos, formatter);
 		
 		for(Vypozicka vypozicka: citatel.oneskoreneVypozicky(datumOd, datumDo)) {
-			info.add("kniha "+vypozicka.getNazovKnihy()+" bola vratena "+vypozicka.getDatumKedySaVratila()+
-					" vratit sa mala najneskor "+vypozicka.getDatumDoKedySaMaVratit()+
+			info.add("kniha "+vypozicka.getNazovKnihy()+" bola vratena "
+					+vypozicka.getDatumKedySaVratila().format(formatter)+
+					" vratit sa mala najneskor "+vypozicka.getDatumDoKedySaMaVratit().format(formatter)+
 					" to je "+vypozicka.getPocetDniMeskania()+" dni meskania");
 		}
 		return info;
@@ -221,7 +221,9 @@ public class KniznicnySoftware {
 			return "citatel ma pozicane knihy, neda sa vymazat";
 		}
 		citateliaPodlaID.delete(Integer.parseInt(id));
+		citateliaPodlaMena.find(citatel.getPriezvisko()+citatel.getMeno()).delete(Integer.parseInt(id));
 		return "citatel bol vymazany";
+		
 	}
 
 	private Citatel getCitatela(int id) {
@@ -240,6 +242,13 @@ public class KniznicnySoftware {
 		}
 		// TODO zistit blokovanie
 		return infoOknihach;
+	}
+	public String vymazKnihu(String nazovPobocky, String IDKnihy) {
+		Pobocka pobocka = pobockyPodlaMena.find(nazovPobocky);
+		if(pobocka==null) {
+			return "pobocka neexistuje";
+		}
+		return pobocka.vymazKnihu(IDKnihy);
 	}
 
 	public List<String> getNazvyPobociek() {
@@ -310,7 +319,8 @@ public class KniznicnySoftware {
 		if (citatel == null) {
 			return "èitate¾ neexistuje";
 		}
-		return citatel.getMeno() + " " + citatel.getPriezvisko();
+		String info = citatel.getMeno() + " " + citatel.getPriezvisko()+" "+citatel.getDatumOdblokovania();
+		return info;
 
 	}
 

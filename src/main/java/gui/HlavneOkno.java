@@ -18,6 +18,11 @@ import javax.swing.JTextField;
 public class HlavneOkno extends JFrame {
 	private JPanel contentPane;
 	private KniznicnySoftware kniznica;
+	private RuseniePobocky ruseniePobocky;
+	private VyradenieCitatela vyradenieCitatela;
+	private VypisVypoziciekCitatela vypisVypoziciekCitatela;
+	private VypisOneskorenychVrateniPreCitatela vypisOneskorenychVrateniPreCitatela;
+	private VypisVypoziciekNaPobocke vypisVypoziciekNaPobocke;
 	private PridanieCitatela pridanieCitatelaDialog;
 	private PridanieNovejKnihyDialog pridanieNovejKnihyDialog;
 	private PridaniePobocky pridaniePobocky;
@@ -29,6 +34,8 @@ public class HlavneOkno extends JFrame {
 	private VyhldanieKnih vyhladanieKnih;
 	private ZapozicanieKnihy zapozicanieKnih;
 	private VratenieKnihy vrateniaKnih;
+	private VypisKnihNaPobockeKdeCitateliaMeskaju vypisKnihNaPobockeKdeCitateliaMeskaju; 
+	private VyradenieKnihy vyradenieKnihy;
 	private JTextField textFieldDatum;
 	private JLabel lblDatum;
 	/**
@@ -53,7 +60,7 @@ public class HlavneOkno extends JFrame {
 	public HlavneOkno() {
 		setTitle("Kni\u017Enica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 592, 268);
+		setBounds(100, 100, 604, 423);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,7 +72,7 @@ public class HlavneOkno extends JFrame {
 				pridanieCitatelaDialog.setVisible(true);
 			}
 		});
-		btnPridanieCitatela.setBounds(10, 52, 144, 23);
+		btnPridanieCitatela.setBounds(10, 52, 170, 23);
 		contentPane.add(btnPridanieCitatela);
 		
 		JButton btnPridanieNovejKnihy = new JButton("Pridanie novej knihy");
@@ -83,25 +90,25 @@ public class HlavneOkno extends JFrame {
 				pridaniePobocky.setVisible(true);
 			}
 		});
-		btnPridaniePobocky.setBounds(10, 122, 144, 23);
+		btnPridaniePobocky.setBounds(10, 123, 170, 23);
 		contentPane.add(btnPridaniePobocky);
 		
-		JButton btnVyhladanieCitatela = new JButton("Vyhladanie Citatela");
+		JButton btnVyhladanieCitatela = new JButton("Vyh\u013Eadanie \u010Ditatela");
 		btnVyhladanieCitatela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vyhladanieCitatelaDialog.setVisible(true);
 			}
 		});
-		btnVyhladanieCitatela.setBounds(413, 52, 144, 23);
+		btnVyhladanieCitatela.setBounds(318, 260, 144, 23);
 		contentPane.add(btnVyhladanieCitatela);
 		
-		JButton btnVyhladanieKnihy = new JButton("Vyhladanie knihy");
+		JButton btnVyhladanieKnihy = new JButton("Vyh\u013Eadanie knihy");
 		btnVyhladanieKnihy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vyhladanieKnihyDialog.setVisible(true);
 			}
 		});
-		btnVyhladanieKnihy.setBounds(413, 88, 144, 23);
+		btnVyhladanieKnihy.setBounds(10, 260, 144, 23);
 		contentPane.add(btnVyhladanieKnihy);
 		
 		JButton btnVypisCitatelov = new JButton("V\u00FDpis \u010Ditate\u013Eov");
@@ -110,7 +117,7 @@ public class HlavneOkno extends JFrame {
 				vypisCitatelovDialog.setVisible(true);
 			}
 		});
-		btnVypisCitatelov.setBounds(209, 52, 144, 23);
+		btnVypisCitatelov.setBounds(387, 52, 170, 23);
 		contentPane.add(btnVypisCitatelov);
 		
 		JButton btnVypisKnih = new JButton("V\u00FDpis kn\u00EDh na pobo\u010Dke");
@@ -119,7 +126,7 @@ public class HlavneOkno extends JFrame {
 				vypisKnihNaPobockeDialog.setVisible(true);
 			}
 		});
-		btnVypisKnih.setBounds(209, 122, 170, 23);
+		btnVypisKnih.setBounds(387, 88, 170, 23);
 		contentPane.add(btnVypisKnih);
 		
 		JButton btnVpisPoboiek = new JButton("V\u00FDpis pobo\u010Diek");
@@ -128,16 +135,16 @@ public class HlavneOkno extends JFrame {
 				vypisPobociekDialog.setVisible(true);
 			}
 		});
-		btnVpisPoboiek.setBounds(209, 86, 132, 23);
+		btnVpisPoboiek.setBounds(387, 122, 170, 23);
 		contentPane.add(btnVpisPoboiek);
 		
-		JButton btnVyhladanieKnih = new JButton("Vyhladanie knih");
+		JButton btnVyhladanieKnih = new JButton("Vyh\u013Eadanie kn\u00EDh");
 		btnVyhladanieKnih.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vyhladanieKnih.setVisible(true);
 			}
 		});
-		btnVyhladanieKnih.setBounds(413, 122, 144, 23);
+		btnVyhladanieKnih.setBounds(164, 260, 144, 23);
 		contentPane.add(btnVyhladanieKnih);
 		
 		JButton btnZapoianieKnihy = new JButton("Zapo\u017Ei\u010Danie knihy");
@@ -146,7 +153,7 @@ public class HlavneOkno extends JFrame {
 				zapozicanieKnih.setVisible(true);
 			}
 		});
-		btnZapoianieKnihy.setBounds(10, 178, 146, 23);
+		btnZapoianieKnihy.setBounds(10, 315, 146, 23);
 		contentPane.add(btnZapoianieKnihy);
 		lblDatum.setBounds(10, 15, 144, 14);
 		contentPane.add(lblDatum);
@@ -178,8 +185,71 @@ public class HlavneOkno extends JFrame {
 				vrateniaKnih.setVisible(true);
 			}
 		});
-		btnVrtenieKnihy.setBounds(169, 178, 184, 23);
+		btnVrtenieKnihy.setBounds(164, 315, 184, 23);
 		contentPane.add(btnVrtenieKnihy);
+		
+		JButton btnVpisVpoiiekNa = new JButton("V\u00FDpis v\u00FDpo\u017Ei\u010Diek na pobo\u010Dke");
+		btnVpisVpoiiekNa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vypisVypoziciekNaPobocke.setVisible(true);
+			}
+		});
+		btnVpisVpoiiekNa.setBounds(10, 220, 207, 23);
+		contentPane.add(btnVpisVpoiiekNa);
+		
+		JButton btnVpisOmekanchKnh = new JButton("V\u00FDpis kn\u00EDh kde \u010Ditatelia me\u0161kaj\u00FA s vr\u00E1ten\u00EDm");
+		btnVpisOmekanchKnh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vypisKnihNaPobockeKdeCitateliaMeskaju.setVisible(true);
+			}
+		});
+		btnVpisOmekanchKnh.setBounds(271, 220, 306, 23);
+		contentPane.add(btnVpisOmekanchKnh);
+		
+		JButton btnVyradenieKnihy = new JButton("Vyradenie knihy");
+		btnVyradenieKnihy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vyradenieKnihy.setVisible(true);
+			}
+		});
+		btnVyradenieKnihy.setBounds(190, 88, 182, 23);
+		contentPane.add(btnVyradenieKnihy);
+		
+		JButton btnVpisOmekanchVrten = new JButton("V\u00FDpis ome\u0161kan\u00FDch vr\u00E1ten\u00ED pre \u010Ditate\u013Ea");
+		btnVpisOmekanchVrten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vypisOneskorenychVrateniPreCitatela.setVisible(true);
+			}
+		});
+		btnVpisOmekanchVrten.setBounds(271, 190, 306, 23);
+		contentPane.add(btnVpisOmekanchVrten);
+		
+		JButton btnVpisVpoiiekNa_1 = new JButton("V\u00FDpis v\u00FDpo\u017Ei\u010Diek \u010Ditate\u013Ea");
+		btnVpisVpoiiekNa_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vypisVypoziciekCitatela.setVisible(true);
+			}
+		});
+		btnVpisVpoiiekNa_1.setBounds(10, 187, 206, 23);
+		contentPane.add(btnVpisVpoiiekNa_1);
+		
+		JButton btnVyradenieitatea = new JButton("Vyradenie \u010Ditate\u013Ea");
+		btnVyradenieitatea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vyradenieCitatela.setVisible(true);
+			}
+		});
+		btnVyradenieitatea.setBounds(190, 52, 182, 23);
+		contentPane.add(btnVyradenieitatea);
+		
+		JButton btnNewButton = new JButton("Zru\u0161enie pobo\u010Dky");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ruseniePobocky.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(191, 123, 182, 23);
+		contentPane.add(btnNewButton);
 		pridanieCitatelaDialog = new PridanieCitatela(kniznica);
 		pridanieNovejKnihyDialog = new PridanieNovejKnihyDialog(kniznica);
 		pridaniePobocky = new PridaniePobocky(kniznica);
@@ -188,9 +258,15 @@ public class HlavneOkno extends JFrame {
 		vypisCitatelovDialog = new VypisCitatelovDialog(kniznica);
 		vypisKnihNaPobockeDialog = new VypisKnihNaPobockeDialog(kniznica);
 		vypisPobociekDialog = new VypisPobociekDialog(kniznica);
-		pridanieCitatelaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		vyhladanieKnih = new VyhldanieKnih(kniznica);
 		zapozicanieKnih = new ZapozicanieKnihy(kniznica);
 		vrateniaKnih = new VratenieKnihy(kniznica);
+		vypisVypoziciekNaPobocke = new VypisVypoziciekNaPobocke(kniznica);
+		vypisKnihNaPobockeKdeCitateliaMeskaju = new VypisKnihNaPobockeKdeCitateliaMeskaju(kniznica);
+		vyradenieKnihy = new VyradenieKnihy(kniznica);
+		vypisOneskorenychVrateniPreCitatela = new VypisOneskorenychVrateniPreCitatela(kniznica);
+		vypisVypoziciekCitatela  = new VypisVypoziciekCitatela(kniznica);
+		vyradenieCitatela = new VyradenieCitatela(kniznica);
+		ruseniePobocky = new RuseniePobocky(kniznica);
 	}
 }

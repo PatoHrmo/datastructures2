@@ -1,28 +1,27 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import main.KniznicnySoftware;
 
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+public class VypisVypoziciekNaPobocke extends JDialog {
 
-public class VypisKnihNaPobockeDialog extends JDialog {
 	private JTextField nazovPobockytextField;
 	private KniznicnySoftware kniznica;
 	private JTextArea pobockytextArea;
 	
 	
-	public VypisKnihNaPobockeDialog(KniznicnySoftware kniznica) {
+	public VypisVypoziciekNaPobocke(KniznicnySoftware kniznica) {
 		this.kniznica = kniznica;
-		setTitle("V\u00FDpis kn\u00EDh na pobo\u010Dke");
+		setTitle("V\u00FDpis v\u00FDpo\u017Ei\u010Diek na pobo\u010Dke");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		
@@ -39,13 +38,13 @@ public class VypisKnihNaPobockeDialog extends JDialog {
 		btnHladaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nazovPobocky = nazovPobockytextField.getText();
-				String infoOknihach = new String();
-				for(String info : kniznica.getInfoOknihachNaPobocke(nazovPobocky)){
-					infoOknihach+=info+System.lineSeparator();
+				String infoOVypozickach = new String();
+				for(String info : kniznica.getInfoOVypozickachNaPobocke(nazovPobocky)){
+					infoOVypozickach+=info+System.lineSeparator();
 				}
-				pobockytextArea.setText(infoOknihach);
-				if(infoOknihach.equals("")) {
-					pobockytextArea.setText("na tejto poboèke nie sú knihy");
+				pobockytextArea.setText(infoOVypozickach);
+				if(infoOVypozickach.equals("")) {
+					pobockytextArea.setText("na tejto poboèke nie sú výpožièky, alebo poboèka neexistuje");
 				}
 			}
 		});
@@ -60,4 +59,5 @@ public class VypisKnihNaPobockeDialog extends JDialog {
 		scrollPane.setViewportView(pobockytextArea);
 
 	}
+
 }

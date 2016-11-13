@@ -1,6 +1,7 @@
 package pojo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +126,12 @@ public class Citatel {
 	}
 	public void setDatumOdblokovania(LocalDate datum) {
 		this.datumOdblokovania = datum;
+		
+	}
+	public String getDatumOdblokovania() {
+		if (datumOdblokovania==null) return "";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+		return datumOdblokovania.format(formatter);
 		
 	}
 	public boolean jeMoznePozicat(LocalDate datum) {

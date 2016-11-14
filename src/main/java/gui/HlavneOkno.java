@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 public class HlavneOkno extends JFrame {
 	private JPanel contentPane;
 	private KniznicnySoftware kniznica;
+	private UkladanieDoSuboru ukladanieDoSuboru;
+	private Generovanie generovanie;
 	private RuseniePobocky ruseniePobocky;
 	private VyradenieCitatela vyradenieCitatela;
 	private VypisVypoziciekCitatela vypisVypoziciekCitatela;
@@ -250,6 +252,24 @@ public class HlavneOkno extends JFrame {
 		});
 		btnNewButton.setBounds(191, 123, 182, 23);
 		contentPane.add(btnNewButton);
+		
+		JButton btnGenerovanie = new JButton("Generovanie");
+		btnGenerovanie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				generovanie.setVisible(true);
+			}
+		});
+		btnGenerovanie.setBounds(10, 351, 144, 23);
+		contentPane.add(btnGenerovanie);
+		
+		JButton btnUkladanienatanie = new JButton("Ukladanie/na\u010D\u00EDtanie");
+		btnUkladanienatanie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ukladanieDoSuboru.setVisible(true);
+			}
+		});
+		btnUkladanienatanie.setBounds(164, 349, 182, 23);
+		contentPane.add(btnUkladanienatanie);
 		pridanieCitatelaDialog = new PridanieCitatela(kniznica);
 		pridanieNovejKnihyDialog = new PridanieNovejKnihyDialog(kniznica);
 		pridaniePobocky = new PridaniePobocky(kniznica);
@@ -268,5 +288,7 @@ public class HlavneOkno extends JFrame {
 		vypisVypoziciekCitatela  = new VypisVypoziciekCitatela(kniznica);
 		vyradenieCitatela = new VyradenieCitatela(kniznica);
 		ruseniePobocky = new RuseniePobocky(kniznica);
+		generovanie = new Generovanie(kniznica);
+		ukladanieDoSuboru = new UkladanieDoSuboru(kniznica);
 	}
 }

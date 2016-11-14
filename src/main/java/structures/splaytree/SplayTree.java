@@ -14,7 +14,12 @@ public class SplayTree<K extends Comparable<K>, T> {
 		this.root = null;
 		this.size = 0;
 	}
-
+	/**
+	 * VloûÌ dann˝ prvok do tohto stromu
+	 * @param key kæ˙Ë prvku ktor˝ vklad·me
+	 * @param newData prvok ktor˝ vklad·me
+	 * @return true ak prvok bol ˙speöne vloûen˝, inak false
+	 */
 	public boolean insert(K key, T newData) {
 		if (root == null) {
 			root = new SplayNode<>(key, newData);
@@ -53,7 +58,11 @@ public class SplayTree<K extends Comparable<K>, T> {
 			return false;
 		}
 	}
-
+	/**
+	 * N·jde prvok pod dann˝m kæ˙Ëom
+	 * @param key kæ˙Ë pod ktor˝m je prvok ktor˝ chceme zÌskaù
+	 * @return prvok pod kæ˙Ëom alebo null, ak tak˝ prvok nie je
+	 */
 	public T find(K key) {
 		if (root == null)
 			return null;
@@ -80,7 +89,11 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
-
+    /**
+     * vymaûe prvok pod kæ˙Ëom
+     * @param key kæ˙Ë pod ktor˝m chceme vymazaù prvok
+     * @return prvok pod dann˝m kæ˙Ëom, alebo null ak tak˝ neexistuje
+     */
 	public T delete(K key) {
 		if (root == null)
 			return null;
@@ -215,7 +228,12 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
-
+	/**
+	 * n·jde inorder nasledovn˙ nÛdu, a ak tak· existuje
+	 *  tak vymaûe jej smernÌky na Úu aj na jej rodiËa
+	 * @param node ku ktorej chceme n·jsù inorder nasledovnÌka
+	 * @return inorder nasledovn˙ nÛdu bez smernÌkov na Úu alebo z nej
+	 */
 	private SplayNode<K, T> getSuccessorAndDeleteItFromParent(SplayNode<K, T> node) {
 		SplayNode<K, T> successor = node.right;
 
@@ -257,7 +275,10 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
-
+	/**
+	 * vykon· prav˙ rot·ciu okolo nÛdy
+	 * @param node nÛda od ktorej sa m· vykonaù prav· rot·cia
+	 */
 	private void rightRotation(SplayNode<K, T> node) {
 		SplayNode<K, T> leftSon = node.left;
 		if (leftSon != null) {
@@ -277,7 +298,10 @@ public class SplayTree<K extends Comparable<K>, T> {
 		node.parent = leftSon;
 
 	}
-
+	/**
+	 * vykon· lav˙ rot·ciu okolo nÛdy
+	 * @param node nÛda od ktorej sa m· vykonaù lav· rot·cia
+	 */
 	private void leftRotation(SplayNode<K, T> node) {
 		SplayNode<K, T> rightSon = node.right;
 		if (rightSon != null) {
@@ -297,7 +321,10 @@ public class SplayTree<K extends Comparable<K>, T> {
 			rightSon.left = node;
 		node.parent = rightSon;
 	}
-
+	/**
+	 * vykon· oper·ciu splay na zadanej nÛde
+	 * @param node nÛda na ktorej sa vykon· oper·cia splay
+	 */
 	private void splay(SplayNode<K, T> node) {
 		while (node.parent != null) {
 			if (node.parent.parent == null) {
@@ -321,78 +348,76 @@ public class SplayTree<K extends Comparable<K>, T> {
 			}
 		}
 	}
-
-	T[] toArray(T[] pole) {
-		if (root == null)
-			return null;
-		int i = 0;
-		Stack<SplayNode<K, T>> zasobnik = new Stack<>();
-		SplayNode<K, T> actual = root;
-		while (actual != null) {
-			zasobnik.push(actual);
-			actual = actual.left;
-		}
-		while (zasobnik.size() > 0) {
-			actual = zasobnik.pop();
-			pole[i] = actual.getData();
-			i++;
-			if (actual.right != null) {
-				actual = actual.right;
-				while (actual != null) {
-					zasobnik.push(actual);
-					actual = actual.left;
-				}
-			}
-
-		}
-		return pole;
-	}
-
+	/**
+	 * 
+	 * @return poËet prvkov v tomto strome
+	 */
 	public int getSize() {
 		return this.size;
 	}
+	
+//	private void isOk(SplayNode<K, T> noda) {
+//		if (noda == null)
+//			return;
+//		System.out.println(noda.getKey());
+//
+//		if (noda.parent != null) {
+//			if (noda.parent.left == noda) {
+//				System.out.println("noda " + noda.getKey() + " je lavy potomok nody " + noda.parent.getKey());
+//			}
+//			if (noda.parent.right == noda) {
+//				System.out.println("noda " + noda.getKey() + " je pravy potomok nody " + noda.parent.getKey());
+//			}
+//			if (noda == noda.parent) {
+//				System.out.println("AHA noda " + noda.getKey() + " je potomkom nody " + noda.parent.getKey());
+//				System.exit(0);
+//			}
+//		}
+//		if (noda.left != null) {
+//			System.out.println("lavy syn nody " + noda.getKey() + " je " + noda.left.getKey());
+//			if (noda == noda.left) {
+//				System.out.println("AHA noda " + noda.getKey() + " ma laveho syna " + noda.left.getKey());
+//				System.exit(0);
+//			}
+//		}
+//		if (noda.right != null) {
+//			System.out.println("pravy syn nody " + noda.getKey() + " je " + noda.right.getKey());
+//			if (noda == noda.right) {
+//				System.out.println("AHA noda " + noda.getKey() + " ma praveho syna " + noda.right.getKey());
+//				System.exit(0);
+//			}
+//		}
+//	}
 
-	private void isOk(SplayNode<K, T> noda) {
-		if (noda == null)
-			return;
-		System.out.println(noda.getKey());
-
-		if (noda.parent != null) {
-			if (noda.parent.left == noda) {
-				System.out.println("noda " + noda.getKey() + " je lavy potomok nody " + noda.parent.getKey());
-			}
-			if (noda.parent.right == noda) {
-				System.out.println("noda " + noda.getKey() + " je pravy potomok nody " + noda.parent.getKey());
-			}
-			if (noda == noda.parent) {
-				System.out.println("AHA noda " + noda.getKey() + " je potomkom nody " + noda.parent.getKey());
-				System.exit(0);
-			}
-		}
-		if (noda.left != null) {
-			System.out.println("lavy syn nody " + noda.getKey() + " je " + noda.left.getKey());
-			if (noda == noda.left) {
-				System.out.println("AHA noda " + noda.getKey() + " ma laveho syna " + noda.left.getKey());
-				System.exit(0);
-			}
-		}
-		if (noda.right != null) {
-			System.out.println("pravy syn nody " + noda.getKey() + " je " + noda.right.getKey());
-			if (noda == noda.right) {
-				System.out.println("AHA noda " + noda.getKey() + " ma praveho syna " + noda.right.getKey());
-				System.exit(0);
-			}
-		}
-	}
-
-	public void SkontrolujStromCezLevelOrder() {
+//	public void SkontrolujStromCezLevelOrder() {
+//		if (root == null)
+//			return;
+//		Queue<SplayNode<K, T>> queue = new LinkedList<SplayNode<K, T>>();
+//		queue.add(root);
+//		while (!queue.isEmpty()) {
+//			SplayNode<K, T> tempNode = queue.poll();
+//			isOk(tempNode);
+//			if (tempNode.left != null) {
+//				queue.add(tempNode.left);
+//			}
+//			if (tempNode.right != null) {
+//				queue.add(tempNode.right);
+//			}
+//		}
+//	}
+	/**
+	 * 
+	 * @return list obsahuj˙ci prvky tohto stromu v levelorder poradÌ
+	 */
+	public List<T> toListLevelOrder() {
 		if (root == null)
-			return;
+			return new ArrayList<>();
+		List<T> list = new ArrayList<>();
 		Queue<SplayNode<K, T>> queue = new LinkedList<SplayNode<K, T>>();
 		queue.add(root);
 		while (!queue.isEmpty()) {
 			SplayNode<K, T> tempNode = queue.poll();
-			isOk(tempNode);
+			list.add(tempNode.getData());
 			if (tempNode.left != null) {
 				queue.add(tempNode.left);
 			}
@@ -400,8 +425,12 @@ public class SplayTree<K extends Comparable<K>, T> {
 				queue.add(tempNode.right);
 			}
 		}
+		return list;
 	}
-
+	/**
+	 * 
+	 * @return d·ta v koreni tohto stromu
+	 */
 	protected T getRoot() {
 		return root.getData();
 	}
@@ -453,16 +482,11 @@ public class SplayTree<K extends Comparable<K>, T> {
 	public void inOrder(T[] inArray) {
 		inOrder(inArray, root);
 	}
-
-	public void getSuccessorsOfRoot(T[] inArray) {
-		if (root.right != null) {
-			inOrder(inArray, root.right);
-		} else {
-			for (T prvok : inArray) {
-				prvok = null;
-			}
-		}
-	}
+	/**
+	 * vr·ti stanoven˝ poËet prvkov ktorÈ s˙ inorder nasledovnÈ od koreÚa
+	 * @param pocetSuccesorov maxim·lny poËet prvkov ktorÈ sa vr·tia
+	 * @return list obsahuj˙ci prvky inorder nasledovnÈ od koreÚa
+	 */
 	public List<T> getSuccessorsOfRootinList(int pocetSuccesorov) {
 		if (root.right != null) {
 			List<T> successorList= toList(root.right);
@@ -476,11 +500,18 @@ public class SplayTree<K extends Comparable<K>, T> {
 			return new ArrayList<>();
 		}
 	}
-	
+	/**
+	 * 
+	 * @return vr·ti prvok ktor˝ sa nach·dza v koreni tohto stromu
+	 */
 	public T getDataZRootu() {
 		return root.getData();
 	}
-	
+	/**
+	 * vr·ti list prvkov v inorder poradÌ od dannej nÛdy
+	 * @param node na ktorej prebehne inOrder
+	 * @return list prvkov v inorder poradÌ od dannej nÛdy
+	 */
 	public List<T> toList(SplayNode<K, T> node) {
 		Stack<SplayNode<K, T>> s = new Stack<>();
 		List<T> list = new ArrayList<>();

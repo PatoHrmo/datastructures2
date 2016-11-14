@@ -92,6 +92,10 @@ public class Vypozicka {
 		}
 		return info;
 	}
+	public String getSuboroveUdaje() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

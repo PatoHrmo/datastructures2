@@ -65,6 +65,16 @@ public class Kniha {
 		this.aktualnePriradenaPobocka = pobocka;
 		
 	}
+	public boolean bolaVymazana() {
+		if(aktualnePriradenaPobocka.knihyPodlaID.find(IDvytlacku)==null){
+			return true;
+		}
+		return false;
+	}
+	public String getSuboroveUdaje() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 		
 	
 }

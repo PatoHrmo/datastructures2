@@ -22,24 +22,46 @@ public class SplayNode<K extends Comparable<K>,T> {
 		left = null;
 		right = null;
 	}
-	protected int compareNodes(SplayNode<K,T> node) {
-		return this.key.compareTo(node.key);
-	}
+	/**
+	 * Porovná k¾úè tejto nódy s inım k¾úèom
+	 * @param key k¾úè ktorı bude porovnanı s k¾úèom tejto nódy
+	 * @return záporné, kladné èislo alebo nulu
+	 */
 	protected int compareKeys(K key) {
 		return this.key.compareTo(key)*(-1);
 	}
+	/**
+	 * 
+	 * @return dáta v tejto nóde
+	 */
 	public T getData() {
 		return data;
 	}
+	/**
+	 * nastaví dáta v tejto nóde
+	 * @param data
+	 */
 	public void setData(T data) {
 		this.data = data;
 	}
+	/**
+	 * 
+	 * @return k¾úè tejto nódy
+	 */
 	public K getKey() {
 		return key;
 	}
+	/**
+	 * nastavı k¾úè tejto nódy
+	 * @param key
+	 */
 	public void setKey(K key) {
 		this.key = key;
 	}
+	/**
+	 * 
+	 * @return poèet synov tejto nódy
+	 */
 	int getNumberofKids() {
 		int numberofKids = 0;
 		if(this.left!=null) numberofKids++;

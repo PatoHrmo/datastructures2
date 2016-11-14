@@ -1,10 +1,16 @@
 package main;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import pojo.Citatel;
 import pojo.Kniha;
@@ -24,11 +30,6 @@ public class KniznicnySoftware {
 		citateliaPodlaID = new SplayTree<>();
 		pobockyPodlaMena = new SplayTree<>();
 		citateliaPodlaMena = new SplayTree<>();
-		this.pridajCitatela("Patrik", "Hrmo");
-		this.pridajPobocku("p1");
-		this.pridajPobocku("p2");
-		this.pridajKnihu("p1", "Java 8", "Jan mak", "5465", "645",
-				"romantika", "1", "30");
 	}
 
 	public String najdiKnihuPodlaID(String IDknihy, String NazovPobocky) {
@@ -332,6 +333,144 @@ public class KniznicnySoftware {
 	public String getDatum() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
 		return aktualnyDatum.format(formatter);
+	}
+	private String randomString(int pocetPismenok, Random rnd){
+		String pismenka= "abcdefghijklmnopqrstuvwxyz";
+		String randomString = "";
+		for(int i = 0; i<pocetPismenok;i++) {
+			randomString += pismenka.charAt(rnd.nextInt(pismenka.length()));
+		}
+		return randomString;
+	}
+	public void generuj(String pocetUzivs, String pocetPobocieks, String pocetKnihVkazdejPobockes) {
+		String meno;
+		String priezvisko;
+		String zaner;
+		String menoPobocky;
+		String Isbn;
+		int cislaDoisbn[] = new int[13];
+		cislaDoisbn[0] = 9;
+		cislaDoisbn[1] = 7;
+		cislaDoisbn[2] = 8;
+		int sumaI;
+		Random rnd = new Random();
+		byte bity[]  = new byte[5];
+		int pocetUziv = Integer.parseInt(pocetUzivs);
+		int pocetPobociek = Integer.parseInt(pocetPobocieks);
+		int pocetKnihNaPobocku = Integer.parseInt(pocetKnihVkazdejPobockes);
+		for(int i = 0;i<pocetUziv;i++) {
+			rnd.nextBytes(bity);
+			meno = randomString(5, rnd);;
+			rnd.nextBytes(bity);
+			priezvisko = randomString(5, rnd);;
+			pridajCitatela(meno, priezvisko);
+		}
+		for(int i=0;i<pocetPobociek;i++) {
+			rnd.nextBytes(bity);
+			menoPobocky = randomString(5, rnd);
+			pridajPobocku(menoPobocky);
+			for(int j=0;j<pocetKnihNaPobocku;j++){
+				rnd.nextBytes(bity);
+				meno = randomString(5, rnd);
+				rnd.nextBytes(bity);
+				priezvisko = randomString(5, rnd);;
+				rnd.nextBytes(bity);
+				zaner = randomString(5, rnd);;
+				sumaI= 9+ 3*7 +8;
+				Isbn="978";
+				for(int k =3;k<cislaDoisbn.length-1;k++) {
+					cislaDoisbn[k] = rnd.nextInt(10);
+					Isbn+=cislaDoisbn[k];
+					if(k%2==0) {
+						sumaI+=cislaDoisbn[k];
+					} else {
+						sumaI = cislaDoisbn[k]*3;
+					}
+				}
+				if(sumaI%10==0) {
+					cislaDoisbn[12]=0;
+				} else {
+					cislaDoisbn[12]=10-sumaI%10;
+				}
+				Isbn+=cislaDoisbn[12];
+				
+				pridajKnihu(menoPobocky, meno, priezvisko, Isbn, Isbn,
+						zaner, String.valueOf(rnd.nextInt(5)), String.valueOf(rnd.nextInt(60)));
+			}
+		}
+	}
+
+	public String ulozDoSuboru(String nazovSuboru) {
+		String vsetciCitateliaString="";
+		String vsetkyPobockyString ="";
+		String vsetkyKnihyString="";
+		String vsetkyVypozickyString="";
+		int pocetPobociek;
+		int pocetKnih;
+		int pocetVypoziciek;
+		int pocetCitatelov = citateliaPodlaID.getSize();
+		SplayTree<Integer,Kniha> knihy = new SplayTree<>();
+		SplayTree<String,Pobocka> pobocky = new SplayTree<>();
+		List<Vypozicka> vypozicky = new ArrayList<>();
+		for(Citatel citatel: citateliaPodlaID.toListLevelOrder()){
+			vsetciCitateliaString+=citatel.getSuboroveUdaje()+System.lineSeparator();
+			for(Vypozicka vypozicka : citatel.getVypozickyVMinulosti()) {
+				pobocky.insert(vypozicka.getNazovPobocky(), vypozicka.getPobocka());
+				knihy.insert(vypozicka.getIDKnihy(), vypozicka.getKniha());
+				vypozicky.add(vypozicka);
+			}
+			for(Vypozicka vypozicka : citatel.getAktualneVypozicky()){
+				vypozicky.add(vypozicka);
+			}
+		}
+		
+		for(Pobocka pobocka : pobockyPodlaMena.toListLevelOrder()) {
+			pobocky.insert(pobocka.getNazov(), pobocka);
+			for(Kniha k : pobocka.getVsetkyKnihyNaPobocke()) {
+				knihy.insert(k.getID(), k);
+			}
+		}
+		pocetKnih = knihy.getSize();
+		for(Kniha kniha : knihy.toListLevelOrder()) {
+			if(kniha.bolaVymazana()) {
+				vsetkyKnihyString+= kniha.getSuboroveUdaje()+",n"+System.lineSeparator();
+			} else {
+				vsetkyKnihyString+= kniha.getSuboroveUdaje()+",e"+System.lineSeparator();
+			}
+			
+		}
+		pocetPobociek = pobocky.getSize();
+		for(Pobocka pobocka : pobocky.toListLevelOrder()) {
+			if(pobockyPodlaMena.find(pobocka.getNazov())==null){
+				vsetkyPobockyString+=pobocka.getSuboroveUdaje()+",n"+System.lineSeparator();
+			} else {
+				vsetkyPobockyString+=pobocka.getSuboroveUdaje()+",e"+System.lineSeparator();
+			}
+			
+		}
+		pocetVypoziciek = vypozicky.size();
+		for(Vypozicka vypozicka : vypozicky) {
+			vsetkyVypozickyString+= vypozicka.getSuboroveUdaje()+System.lineSeparator();
+		}
+		String vsetkyUdaje = 
+				pocetCitatelov+","+Citatel.getNextCisloPreukazu()
+				+System.lineSeparator()+vsetciCitateliaString
+				+pocetPobociek+System.lineSeparator()+vsetkyPobockyString
+				+pocetKnih+System.lineSeparator()+vsetkyKnihyString
+				+pocetVypoziciek+System.lineSeparator()+vsetkyVypozickyString;
+		try {
+			Files.write(Paths.get(nazovSuboru), vsetkyUdaje.getBytes());
+			return "knižnica bola uložená do súboru "+nazovSuboru;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "knižnica Nebola uložená do súboru "+nazovSuboru;
+		}
+		
+	}
+
+	public String nacitajZoSuboru(String nazovSuboru) {
+		// TODO Auto-generated method stub
+		return "knižnica bola naèítaná zo súboru "+nazovSuboru;
 	}
 
 }

@@ -56,6 +56,16 @@ public class Citatel {
 		return zoznamKnih;
 		
 	}
+	public List<Vypozicka> getAktualneVypozicky() {
+		List<SplayTree<Integer,Vypozicka>> zoznamyVypozicieksRovnakymNazvom = 
+				aktualnePozicaneKnihy.toListLevelOrder();
+		List<Vypozicka> zoznamVypoziciek = new ArrayList<>();
+		for(SplayTree<Integer, Vypozicka> zoznam : zoznamyVypozicieksRovnakymNazvom) {
+			zoznamVypoziciek.addAll(zoznam.toListLevelOrder());
+		}
+		return zoznamVypoziciek;
+		
+	}
 	public int getCisloPreukazu() {
 		return this.cisloPreukazu;
 	}
@@ -110,6 +120,14 @@ public class Citatel {
 		}
 		return zoznamKnih;
 	}
+	public List<Vypozicka> getVypozickyVMinulosti() {
+		List<SplayTree<Integer,Vypozicka>> zoznamyVypozicieksRovnakymNazvom = knihyPozicaneVMinulosti.toListLevelOrder();
+		List<Vypozicka> zoznamVypoziciek = new ArrayList<>();
+		for(SplayTree<Integer, Vypozicka> zoznam : zoznamyVypozicieksRovnakymNazvom) {
+			zoznamVypoziciek.addAll(zoznam.toListLevelOrder());
+		}
+		return zoznamVypoziciek;
+	}
 	public boolean maPozicaneKnihy() {
 		if(aktualnePozicaneKnihyPodlaID.getSize()==0){
 			return false;
@@ -145,6 +163,15 @@ public class Citatel {
 				return true;
 			} else return false;
 		
+	}
+	public String getSuboroveUdaje() {
+		return meno+","+priezvisko+","+cisloPreukazu;
+	}
+	public static int getNextCisloPreukazu() {
+		return nextCisloPreukazu;
+	}
+	public static void setNextCisloPreukazu(int nextCisloPreukazu) {
+		Citatel.nextCisloPreukazu = nextCisloPreukazu;
 	}
 	
 	

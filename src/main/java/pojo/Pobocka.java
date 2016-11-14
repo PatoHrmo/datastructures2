@@ -126,5 +126,8 @@ public class Pobocka {
 		}
 		return vsetkyVypozicky;
 	}
+	public String getSuboroveUdaje() {
+		return nazov;
+	}
 	
 }

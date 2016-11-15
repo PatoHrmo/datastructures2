@@ -11,6 +11,7 @@ public class Vypozicka {
 	private LocalDate datumDoKedySaMaVratit;
 	private LocalDate datumZapozicania;
 	private LocalDate datumKedyBolaVratena;
+	private String nazovPobockyKdeBolaVratena;
 	public Vypozicka(Pobocka pobocka, Kniha kniha, Citatel citatel, LocalDate datumDoKedySaMaVratit, LocalDate datumZapozicania) {
 		this.pobocka = pobocka;
 		this.kniha = kniha;
@@ -18,6 +19,7 @@ public class Vypozicka {
 		this.datumDoKedySaMaVratit = datumDoKedySaMaVratit;
 		this.datumZapozicania = datumZapozicania;
 		this.datumKedyBolaVratena = null;
+		this.nazovPobockyKdeBolaVratena = null;
 		this.kniha.setAktualnaVypozicka(this);
 		this.citatel.pridajNovuVypozicku(this);
 		this.pobocka.pridajNovuVypozicku(this);
@@ -49,6 +51,10 @@ public class Vypozicka {
 	public void setDatumKedyBolaVratena(LocalDate datumKedyBolaVratena) {
 		this.datumKedyBolaVratena = datumKedyBolaVratena;
 	}
+	/**
+	 * zistí èi táto vıpoièka bola vrátená naèas
+	 * @return true ak táto vıpoièka meškala s vrátením, inak false
+	 */
 	public boolean bolaVratenaNeskor() {
 		if(datumKedyBolaVratena==null) return false;
 		if(datumKedyBolaVratena.isAfter(datumDoKedySaMaVratit)) {
@@ -59,10 +65,20 @@ public class Vypozicka {
 	public Citatel getCitatela () {
 		return this.citatel;
 	}
+	/** 
+	 * zistí poèet dní meškania pri vrátení tejto vıpoièky
+	 * @return poèet dní meškania pri vrátení tejto vıpoièky, alebo 0 ak ešte nebola vrátená alebo nemeškala
+	 */
 	public int getPocetDniMeskania() {
-		if(datumKedyBolaVratena==null) return 0;
+		if(!bolaVratenaNeskor())
+			return 0;
 		return (int)ChronoUnit.DAYS.between(datumDoKedySaMaVratit, datumKedyBolaVratena);
 	}
+	/**
+	 * zistí èi vıpoièka mešká s vrátením
+	 * @param aktualnyDatum dátum ku ktorému zisujeme meškanie
+	 * @return true ak táto vıoièka mešká s vrátením
+	 */
 	public boolean meskaSVratenim(LocalDate aktualnyDatum) {
 		if(datumDoKedySaMaVratit.isBefore(aktualnyDatum)) {
 			return true;
@@ -72,9 +88,15 @@ public class Vypozicka {
 	public LocalDate getDatumKedySaVratila() {
 		return datumKedyBolaVratena;
 	}
+	/**
+	 * zakáe poièiava knihy tomuto èitate¾ovi na dobu jedného roka od vrátenia knihy
+	 */
 	public void blokniCitatela() {
 		this.citatel.setDatumOdblokovania(datumKedyBolaVratena.plusYears(1));
 		
+	}
+	public void setNazovPobockyKdeBolaVratena(String nazov) {
+		nazovPobockyKdeBolaVratena = nazov;
 	}
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
@@ -92,9 +114,24 @@ public class Vypozicka {
 		}
 		return info;
 	}
+	public String toID() {
+		String udaje = getNazovKnihy()+getCitatela().getCisloPreukazu()+
+				datumZapozicania.toString()+datumKedyBolaVratena.toString();
+		return udaje;
+	}
+	/**
+	 * získa údaje potrebné pri zapisovaní tejto vıpoièky do súboru
+	 * @return string reprezentujúci údaje o tejto vıpoièke
+	 */
 	public String getSuboroveUdaje() {
-		// TODO Auto-generated method stub
-		return null;
+		String udaje=pobocka.getNazov()+","+kniha.getID()+","+citatel.getCisloPreukazu()+","
+				+datumZapozicania.toString()+","+datumDoKedySaMaVratit.toString()+","+datumKedyBolaVratena+","
+				+nazovPobockyKdeBolaVratena;
+		return udaje;
+	}
+	public void setPobocka(Pobocka pobockaDo) {
+		this.pobocka = pobockaDo;
+		
 	}
 	
 	

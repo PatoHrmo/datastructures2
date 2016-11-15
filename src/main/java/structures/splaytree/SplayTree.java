@@ -489,13 +489,8 @@ public class SplayTree<K extends Comparable<K>, T> {
 	 */
 	public List<T> getSuccessorsOfRootinList(int pocetSuccesorov) {
 		if (root.right != null) {
-			List<T> successorList= toList(root.right);
-			if(successorList.size()<=pocetSuccesorov) {
-				return successorList; 
-			} else {
-				return successorList.subList(0, pocetSuccesorov);
-			}
-			
+			List<T> successorList= toList(root.right,pocetSuccesorov);
+			return successorList;
 		} else {
 			return new ArrayList<>();
 		}
@@ -521,6 +516,31 @@ public class SplayTree<K extends Comparable<K>, T> {
 				node = node.left;
 			} else {
 				node = s.pop();
+				list.add(node.getData());
+				node = node.right;
+			}
+		}
+		return list;
+
+	}
+	/**
+	 * vráti list prvkov v inorder poradí od dannej nódy
+	 * @param node na ktorej prebehne inOrder
+	 * @return list prvkov v inorder poradí od dannej nódy
+	 */
+	public List<T> toList(SplayNode<K, T> node, int pocetPrvkov) {
+		Stack<SplayNode<K, T>> s = new Stack<>();
+		List<T> list = new ArrayList<>();
+		while (!s.isEmpty() || node != null) {
+			if (node != null) {
+				s.push(node);
+				node = node.left;
+			} else {
+				node = s.pop();
+				if(pocetPrvkov<1) {
+					return list;
+				}
+				pocetPrvkov--;
 				list.add(node.getData());
 				node = node.right;
 			}

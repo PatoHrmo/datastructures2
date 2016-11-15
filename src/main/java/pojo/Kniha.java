@@ -1,7 +1,6 @@
 package pojo;
 
 import java.time.Period;
-import java.util.Date;
 
 public class Kniha {
 	private static int nextID = 1;
@@ -28,6 +27,18 @@ public class Kniha {
 		IDvytlacku = nextID;
 		nextID++;
 	}
+	public Kniha(String nazov, String autor, String iSBN, String eAN, String zaner, Pobocka aktualnePriradenaPobocka,
+			double poplatokZaDenOmeskania, Period vypozicnaDoba, int ID) {
+		this.nazov = nazov;
+		this.autor = autor;
+		ISBN = iSBN;
+		EAN = eAN;
+		this.zaner = zaner;
+		this.aktualnePriradenaPobocka = aktualnePriradenaPobocka;
+		this.poplatokZaDenOmeskania = poplatokZaDenOmeskania;
+		this.vypozicnaDoba = vypozicnaDoba;
+		IDvytlacku = ID;
+	}
 	@Override
 	public String toString() {
 		String info =  "názov: " + nazov + " autor: " + autor + " ISBN: " + ISBN + " EAN: " + EAN+System.lineSeparator()
@@ -41,6 +52,10 @@ public class Kniha {
 		}
 		return info;
 	}
+	/**
+	 * zistí èi je táto kniha momentálne požièaná
+	 * @return true ak je táto kniha momenálne požièaná, inak false
+	 */
 	public boolean jePozicana() {
 		if(vypozickaVKtorejJeMomentalneTatoKniha==null)
 			return false;
@@ -65,15 +80,30 @@ public class Kniha {
 		this.aktualnePriradenaPobocka = pobocka;
 		
 	}
+	/**
+	 * zistí èi táto kniha bola vyradená zo systému
+	 * @return true ak táto kniha bola vymazaná zo systému, inak false
+	 */
 	public boolean bolaVymazana() {
 		if(aktualnePriradenaPobocka.knihyPodlaID.find(IDvytlacku)==null){
 			return true;
 		}
 		return false;
 	}
+	/**
+	 * získa údaje potrebné pre zápis tejto knihy do súboru
+	 * @return string reprezentujúci dáta tejto knihy
+	 */
 	public String getSuboroveUdaje() {
-		// TODO Auto-generated method stub
-		return null;
+		String udaje = nazov+","+autor+","+ISBN+","+EAN+","+zaner+","+aktualnePriradenaPobocka.getNazov()
+		+","+poplatokZaDenOmeskania+","+vypozicnaDoba.getDays()+","+IDvytlacku;
+		return udaje;
+	}
+	public static int getNextID() {
+		return nextID;
+	}
+	public static void setNextID(int nextID) {
+		Kniha.nextID = nextID;
 	}
 		
 	

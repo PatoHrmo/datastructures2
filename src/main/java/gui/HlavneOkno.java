@@ -196,7 +196,7 @@ public class HlavneOkno extends JFrame {
 				vypisVypoziciekNaPobocke.setVisible(true);
 			}
 		});
-		btnVpisVpoiiekNa.setBounds(10, 220, 207, 23);
+		btnVpisVpoiiekNa.setBounds(10, 220, 237, 23);
 		contentPane.add(btnVpisVpoiiekNa);
 		
 		JButton btnVpisOmekanchKnh = new JButton("V\u00FDpis kn\u00EDh kde \u010Ditatelia me\u0161kaj\u00FA s vr\u00E1ten\u00EDm");
@@ -223,16 +223,16 @@ public class HlavneOkno extends JFrame {
 				vypisOneskorenychVrateniPreCitatela.setVisible(true);
 			}
 		});
-		btnVpisOmekanchVrten.setBounds(271, 190, 306, 23);
+		btnVpisOmekanchVrten.setBounds(271, 187, 306, 23);
 		contentPane.add(btnVpisOmekanchVrten);
 		
-		JButton btnVpisVpoiiekNa_1 = new JButton("V\u00FDpis v\u00FDpo\u017Ei\u010Diek \u010Ditate\u013Ea");
+		JButton btnVpisVpoiiekNa_1 = new JButton("V\u00FDpis star\u00FDch v\u00FDpo\u017Ei\u010Diek \u010Ditate\u013Ea");
 		btnVpisVpoiiekNa_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vypisVypoziciekCitatela.setVisible(true);
 			}
 		});
-		btnVpisVpoiiekNa_1.setBounds(10, 187, 206, 23);
+		btnVpisVpoiiekNa_1.setBounds(10, 187, 237, 23);
 		contentPane.add(btnVpisVpoiiekNa_1);
 		
 		JButton btnVyradenieitatea = new JButton("Vyradenie \u010Ditate\u013Ea");

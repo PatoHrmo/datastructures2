@@ -42,7 +42,7 @@ public class RuseniePobocky extends JDialog {
 		lblInfo.setBounds(10, 153, 499, 14);
 		getContentPane().add(lblInfo);
 		
-		JButton btnZrusAPresun = new JButton("Zru\u0161 pobo\u010Dku");
+		JButton btnZrusAPresun = new JButton("Presu\u0148 pobo\u010Dku");
 		btnZrusAPresun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String rusena = textFieldRusena.getText();
@@ -54,6 +54,16 @@ public class RuseniePobocky extends JDialog {
 		});
 		btnZrusAPresun.setBounds(10, 86, 138, 23);
 		getContentPane().add(btnZrusAPresun);
+		
+		JButton btnZruPoboku = new JButton("Zru\u0161 pobo\u010Dku");
+		btnZruPoboku.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nazov = textFieldRusena.getText();
+				String sprava = kniznica.zrusPobocku(nazov);
+				lblInfo.setText(sprava);
+			}
+		});
+		btnZruPoboku.setBounds(182, 86, 121, 23);
+		getContentPane().add(btnZruPoboku);
 	}
-
 }

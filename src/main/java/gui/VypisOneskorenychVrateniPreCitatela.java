@@ -48,7 +48,7 @@ public class VypisOneskorenychVrateniPreCitatela extends JDialog {
 				menoCitatelaLabel.setText(kniznica.getMenoCitatela(id));
 				for(String vypozicka : kniznica.getinfoOOmesaknychVypozickachCitatela(
 						id, textFieldod.getText(), textFielddo.getText())) {
-					oneskoreneVypozickyCitatela+= vypozicka+System.lineSeparator();
+					oneskoreneVypozickyCitatela+= vypozicka+System.lineSeparator()+System.lineSeparator();
 				}
 				textAreaPozicaneKnihy.setText(oneskoreneVypozickyCitatela);
 			}

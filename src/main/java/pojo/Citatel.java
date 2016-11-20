@@ -149,17 +149,14 @@ public class Citatel {
 	 * získa knihy ktoré boli požièané v minulosti
 	 * @return list kníh ktoré boli požièané v minulosti
 	 */
-	public List<Kniha> getKnihyPozicaneVMinulosti() {
+	public List<Vypozicka> getKnihyPozicaneVMinulosti() {
 		List<SplayTree<Integer,Vypozicka>> zoznamyVypozicieksRovnakymNazvom = knihyPozicaneVMinulosti.toList();
 		List<Vypozicka> zoznamVypoziciek = new ArrayList<>();
-		List<Kniha> zoznamKnih = new ArrayList<>();
 		for(SplayTree<Integer, Vypozicka> zoznam : zoznamyVypozicieksRovnakymNazvom) {
 			zoznamVypoziciek.addAll(zoznam.toList());
 		}
-		for(Vypozicka vypozicka : zoznamVypoziciek) {
-			zoznamKnih.add(vypozicka.getKniha());
-		}
-		return zoznamKnih;
+		
+		return zoznamVypoziciek;
 	}
 	/**
 	 * získa výpožièky ktoré už boli vrátené

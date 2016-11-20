@@ -30,10 +30,20 @@ public class Pobocka {
 	 * @param NazovKnihy názov kníh ktoré h¾adáme
 	 * @return list kníh na tejto poboèke ktoré majú rovnaký názov
 	 */
-	public List<Kniha> najdiKnihyPodlaNazvu(String NazovKnihy) {
+	public List<Kniha> najdiKnihyPodlaNazvu(String NazovKnihy,int pocetKnih) {
 		SplayTree<Integer, Kniha> knihy= knihyPodlaNazvu.find(NazovKnihy);
 		if(knihy == null) {
-			return new ArrayList<Kniha>();
+			List<SplayTree<Integer, Kniha>> zoznamyKnih = knihyPodlaNazvu.getRootAndSuccesorsInList(pocetKnih);
+			List<Kniha> dalsieKnihy = new ArrayList<>();
+			for(SplayTree<Integer, Kniha> zoznam : zoznamyKnih) {
+				dalsieKnihy.add(zoznam.getDataZRootu());
+			}
+			if(dalsieKnihy.size()!=0) {
+				if (dalsieKnihy.get(0).getNazov().compareTo(NazovKnihy)<1) {
+					dalsieKnihy.remove(0);
+				}
+			}
+			return dalsieKnihy;
 		}
 		return knihy.toList();
 	}
@@ -43,7 +53,7 @@ public class Pobocka {
 	 * @return list kníh v abecednom poradí od poslednej knihy nad ktorou sa uskutoènila nejaká operácia
 	 */
 	public List<Kniha> dajDalsieKnihyPodlaAbecedy(int pocetKnih) {
-		List<SplayTree<Integer, Kniha>> zoznamyKnih = knihyPodlaNazvu.getSuccessorsOfRootinList(pocetKnih);
+		List<SplayTree<Integer, Kniha>> zoznamyKnih = knihyPodlaNazvu.getRootAndSuccesorsInList(pocetKnih);
 		List<Kniha> knihy = new ArrayList<>();
 		for(SplayTree<Integer, Kniha> zoznam : zoznamyKnih) {
 			knihy.add(zoznam.getDataZRootu());

@@ -416,13 +416,13 @@ public class SplayTree<K extends Comparable<K>, T> {
 		Queue<SplayNode<K, T>> queue = new LinkedList<SplayNode<K, T>>();
 		queue.add(root);
 		while (!queue.isEmpty()) {
-			SplayNode<K, T> tempNode = queue.poll();
-			list.add(tempNode.getData());
-			if (tempNode.left != null) {
-				queue.add(tempNode.left);
+			SplayNode<K, T> node = queue.poll();
+			list.add(node.getData());
+			if (node.left != null) {
+				queue.add(node.left);
 			}
-			if (tempNode.right != null) {
-				queue.add(tempNode.right);
+			if (node.right != null) {
+				queue.add(node.right);
 			}
 		}
 		return list;
@@ -483,16 +483,21 @@ public class SplayTree<K extends Comparable<K>, T> {
 		inOrder(inArray, root);
 	}
 	/**
-	 * vráti stanovený poèet prvkov ktoré sú inorder nasledovné od koreòa
+	 * vráti stanovený poèet prvkov ktoré sú inorder nasledovné od koreòa, vrátane koreòa
 	 * @param pocetSuccesorov maximálny poèet prvkov ktoré sa vrátia
 	 * @return list obsahujúci prvky inorder nasledovné od koreòa
 	 */
-	public List<T> getSuccessorsOfRootinList(int pocetSuccesorov) {
+	public List<T> getRootAndSuccesorsInList(int pocetSuccesorov) {
+		if(root==null) {
+			return new ArrayList<>();
+		}
+		List<T> successorList = new ArrayList<>();
+		successorList.add(root.getData());
 		if (root.right != null) {
-			List<T> successorList= toList(root.right,pocetSuccesorov);
+			successorList.addAll(toList(root.right,pocetSuccesorov));
 			return successorList;
 		} else {
-			return new ArrayList<>();
+			return successorList;
 		}
 	}
 	/**

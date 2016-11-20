@@ -46,7 +46,7 @@ public class VypisVypoziciekCitatela extends JDialog {
 				String vypozicky = new String();
 				menoCitatelaLabel.setText(kniznica.getMenoCitatela(id));
 				for(String vypozicka : kniznica.getHistoriaVypoziciekCitatela(id)) {
-					vypozicky+= vypozicka+System.lineSeparator();
+					vypozicky+= vypozicka+System.lineSeparator()+System.lineSeparator();
 				}
 				textAreaPozicaneKnihy.setText(vypozicky);
 			}

@@ -80,6 +80,9 @@ public class Kniha {
 		this.aktualnePriradenaPobocka = pobocka;
 		
 	}
+	public Pobocka getAktualnePriradenaPobocka() {
+		return aktualnePriradenaPobocka;
+	}
 	/**
 	 * zistí èi táto kniha bola vyradená zo systému
 	 * @return true ak táto kniha bola vymazaná zo systému, inak false

@@ -40,7 +40,7 @@ public class VypisVypoziciekNaPobocke extends JDialog {
 				String nazovPobocky = nazovPobockytextField.getText();
 				String infoOVypozickach = new String();
 				for(String info : kniznica.getInfoOVypozickachNaPobocke(nazovPobocky)){
-					infoOVypozickach+=info+System.lineSeparator();
+					infoOVypozickach+=info+System.lineSeparator()+System.lineSeparator();
 				}
 				pobockytextArea.setText(infoOVypozickach);
 				if(infoOVypozickach.equals("")) {

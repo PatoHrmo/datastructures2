@@ -26,6 +26,7 @@ public class VypisCitatelovDialog extends JDialog {
 				String info = new String();
 				for(String data : kniznica.getMenaCitatelovSID()) {
 					info+=data+System.lineSeparator();
+					
 				}
 				textAreaCitatelia.setText(info);
 				

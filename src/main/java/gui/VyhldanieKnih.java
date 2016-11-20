@@ -50,7 +50,7 @@ public class VyhldanieKnih extends JDialog {
 						textFieldNazovKnihy.getText(), textFieldNazovPobocka.getText());
 				String udaje = new String();
 				for(String s : infoOknihach) {
-					udaje+=s+System.lineSeparator();
+					udaje+=s+System.lineSeparator()+System.lineSeparator();
 				}
 				textAreaInfo.setText(udaje);
 				if(udaje.equals("")) {

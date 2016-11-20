@@ -126,7 +126,7 @@ public class Vypozicka {
 	public String getSuboroveUdaje() {
 		String udaje=pobocka.getNazov()+","+kniha.getID()+","+citatel.getCisloPreukazu()+","
 				+datumZapozicania.toString()+","+datumDoKedySaMaVratit.toString()+","+datumKedyBolaVratena+","
-				+nazovPobockyKdeBolaVratena;
+				+nazovPobockyKdeBolaVratena+","+kniha.getAktualnePriradenaPobocka().getNazov();
 		return udaje;
 	}
 	public void setPobocka(Pobocka pobockaDo) {
